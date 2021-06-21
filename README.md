@@ -124,13 +124,3 @@ ___
 </div>
 
 </br>
-
-___
-
-<div align="left">
-  <h1 id="license">✔ Licença</h1>
-  <p>  Este projeto está sobre Licença MIT, veja: 
-
-  [![](https://img.shields.io/badge/-✔Licença-3CEA5A)](https://github.com/Tiaguin061/ProductsManagement-frontend/blob/main/LICENSE)
-
-</div>
