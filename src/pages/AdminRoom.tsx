@@ -8,7 +8,6 @@ import answerImg from '../assets/images/answer.svg';
 import logoImg from '../assets/images/logo.svg';
 
 import '../styles/room.scss';
-// import { useAuth } from '../hooks/useAuth';
 import { Question } from '../components/Question';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
@@ -18,7 +17,6 @@ type RoomParams = {
 }
 
 export function AdminRoom() {
-  // const { user } = useAuth();
   const params = useParams<RoomParams>();
   const history = useHistory();
   const roomId = params.id;
@@ -26,10 +24,10 @@ export function AdminRoom() {
 
   async function handleEndRoom() {
     await database.ref(`rooms/${roomId}`).update({
-      endedAt: new Date()
+      endedAt: true
     });
 
-    history.push('/');
+    history.push('/rooms/me');
   }
 
   async function handleCheckQuestionAsAnswered(questionId: string) {
@@ -56,6 +54,7 @@ export function AdminRoom() {
         <div className="content">
           <img src={logoImg} alt="Letmeask" />
           <div>
+            <Button onClick={() => history.push('/rooms/me')}>Minhas salas</Button>
             <RoomCode code={roomId} />
             <Button 
               onClick={handleEndRoom} 
