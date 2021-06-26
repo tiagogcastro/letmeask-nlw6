@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { database } from '../services/firebase';
 import { useAuth } from './useAuth';
 
@@ -29,12 +30,24 @@ type QuestionType = {
 }
 
 export function useRoom(roomId: string) {
+  const history = useHistory();
   const { user } = useAuth();
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [title, setTitle] = useState('');
   
   useEffect(() => {
     const roomRef = database.ref(`rooms/${roomId}`);
+
+    async function roomIsClosed() {
+      const room = (await roomRef.get()).exists();
+      const endedAt = (await roomRef.get()).val().endedAt;
+      
+      if(room && endedAt ){
+        history.push('/');
+        return;
+      }
+    }
+    roomIsClosed();
 
     roomRef.on('value', room => {
       const databaseRoom = room.val();
