@@ -1,17 +1,13 @@
-import { useParams, Link, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-// import { Button } from '../components/Button';
-// import { RoomCode } from '../components/RoomCode';
-import deleteImg from '../assets/images/delete.svg';
-// import checkImg from '../assets/images/check.svg';
-// import answerImg from '../assets/images/answer.svg';
-import logoImg from '../assets/images/logo.svg';
+import deleteImg from '../../assets/images/delete.svg';
+import logoImg from '../../assets/images/logo.svg';
 
-import '../styles/roomsMe.scss';
-import { useAuth } from '../hooks/useAuth';
-import { database } from '../services/firebase';
+import './styles.scss';
+import { useAuth } from '../../hooks/useAuth';
+import { database } from '../../services/firebase';
 import { useEffect, useState } from 'react';
-import { Button } from '../components/Button';
+import { Button } from '../../components/Button';
 
 type FirebaseRooms = Array<{
   id: string,

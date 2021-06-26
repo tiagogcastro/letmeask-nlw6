@@ -1,14 +1,16 @@
-import { useHistory } from 'react-router-dom';
-
-import illustrationImg from '../assets/images/illustration.svg';
-import logoImg from '../assets/images/logo.svg';
-import googleIconImg from '../assets/images/google-icon.svg';
-
-import '../styles/auth.scss';
-import { Button } from '../components/Button';
-import { useAuth } from '../hooks/useAuth';
 import { FormEvent, useState } from 'react';
-import { database } from '../services/firebase';
+import { useHistory } from 'react-router-dom';
+import { database } from '../../services/firebase';
+
+import { useAuth } from '../../hooks/useAuth';
+
+import { Button } from '../../components/Button';
+import { IllustrationAside } from '../../components/IlustrationAside';
+
+import logoImg from '../../assets/images/logo.svg';
+import googleIconImg from '../../assets/images/google-icon.svg';
+
+import './styles.scss';
 
 export function Home() {
   const history = useHistory();
@@ -47,14 +49,7 @@ export function Home() {
 
   return (
     <div id="page-auth">
-      <aside>
-        <img 
-          src={illustrationImg} 
-          alt="Ilustração simbolizando perguntas e respostas" 
-        />
-        <strong>Crie salas de Q&amp;A ao-vivo</strong>
-        <p>Tire as dúvidas da sua audiência em tempo-real</p>
-      </aside>
+      <IllustrationAside />
       <main>
         <div className="main-content">
           <img src={logoImg} alt="Letmeask" />
