@@ -38,10 +38,16 @@ export function AdminRoom() {
     });
   }
 
-  async function handleHighlightQuestion(questionId: string) {
-    await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-      isHighLighted: true,
-    });
+  async function handleHighlightQuestion(questionId: string, isHighLighted: boolean) {
+    if(isHighLighted) {
+      await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+        isHighLighted: false,
+      });
+    } else {
+      await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+        isHighLighted: true,
+      });
+    }
   }
 
   async function handleDeleteQuestion(questionId: string) {
@@ -88,7 +94,7 @@ export function AdminRoom() {
               isAnswered={question.isAnswered}
               isHighlighted={question.isHighLighted}
             >
-              {!question.isAnswered && (
+              {!question.isAnswered ? (
                 <>
                   <button
                     type="button"
@@ -99,12 +105,12 @@ export function AdminRoom() {
     
                   <button
                     type="button"
-                    onClick={() => handleHighlightQuestion(question.id)}
+                    onClick={() => handleHighlightQuestion(question.id, question.isHighLighted)}
                   >
                     <img src={answerImg} alt="Dar destaque à pergunta" />
                   </button>
                 </>
-              )}
+              ): <span>Pergunta respondida</span>}
               <button
                 type="button"
                 onClick={() => handleDeleteQuestion(question.id)}
