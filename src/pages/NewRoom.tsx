@@ -43,11 +43,21 @@ export function NewRoom() {
         <p>Tire as dúvidas da sua audiência em tempo-real</p>
       </aside>
       <main>
+        <header>
+          <div className="user-info">
+            <img src={user?.avatar} alt={user?.name} />
+            <span>{user?.name}</span>
+          </div>
+          <Link to="/rooms/me">
+            <Button type="button">Minhas salas</Button>
+          </Link>
+        </header>
         <div className="main-content">
           <img src={logoImg} alt="Letmeask" />
           <h2>Criar uma nova sala</h2>
           <form onSubmit={handleCreateRoom}>
             <input 
+              maxLength={40}
               type="text" 
               placeholder="Nome da sala"
               onChange={event => setNewRoom(event.target.value)}
