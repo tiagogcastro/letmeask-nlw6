@@ -35,6 +35,7 @@ export function AdminRoom() {
   async function handleCheckQuestionAsAnswered(questionId: string) {
     await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
       isAnswered: true,
+      isHighLighted: false,
     });
   }
 
@@ -96,6 +97,7 @@ export function AdminRoom() {
             >
               {!question.isAnswered ? (
                 <>
+                  <span>Likes: {question.likeCount}</span>
                   <button
                     type="button"
                     onClick={() => handleCheckQuestionAsAnswered(question.id)}

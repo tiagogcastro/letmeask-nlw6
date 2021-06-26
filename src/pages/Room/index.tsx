@@ -108,6 +108,13 @@ export function Room() {
               isAnswered={question.isAnswered}
               isHighlighted={question.isHighLighted}
             >
+              {question.isHighLighted && question.isAnswered === false && (
+                <span className="text-highlighted">📌 Em destaque</span>
+              )}
+
+              {question.isAnswered && question.isHighLighted === false && (
+                <span className="text-answered">Respondida</span>
+              )}
               {!question.isAnswered && (
                 <button 
                   className={`like-button ${question.likeId ? 'liked': ''}`}

@@ -35,7 +35,23 @@
 
     > div {
       display: flex;
+      align-items: center;
+      justify-content:center;
       gap: 16px;
+
+      .text-answered {
+        background: #835afd;
+        color: #f4f0ff;
+        padding: 8px 12px;
+        border-radius: 99px;
+      }
+
+      .text-highlighted {
+        background: #835afd;
+        color: #f4f0ff;
+        padding: 8px 12px;
+        border-radius: 99px;
+      }
       
       span {
         display: flex;
