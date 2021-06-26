@@ -83,7 +83,9 @@ export function Room() {
             placeholder="O que você quer perguntar?"
             onChange={event => setNewQuestion(event.target.value)}
             value={newQuestion}
+            maxLength={400}
           />
+          <p>{newQuestion.length}/400</p>
 
           <div className="form-footer">
             { user ? (
@@ -93,7 +95,7 @@ export function Room() {
                 <button> faça seu login</button>
               </span>
             )}
-            <Button type="submit" disabled={!user || !newQuestion}>Enviar pergunta</Button>
+            <Button type="submit" disabled={!user || !newQuestion || newQuestion.length > 400}>Enviar pergunta</Button>
           </div>
         </form>
 
