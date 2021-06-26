@@ -27,12 +27,21 @@
 </br>
 
 <a href="https://www.figma.com/file/u0BQK8rCf2KgzcukdRRCWh/Letmeask/duplicate">Layout do projeto
+</a>
 
 <center>
   <img src="./.github/cover.svg"/>
 </center>
 
 ___
+
+<div align="left">
+  <h1 id="features"> Features adicionadas </h1>
+
+  <p>➡ Listando todas as minhas salas. </p>
+  <p>➡ Deletando salas. </p>
+  <p>➡ Reabrindo salas que foram encerradas. </p>
+</div>
 
 <div align="left"> 
   <h1 id="techs">🚀 Tecnologias Utilizadas </h1> 
