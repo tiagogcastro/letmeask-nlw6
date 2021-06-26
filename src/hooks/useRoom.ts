@@ -48,7 +48,7 @@ export function useRoom(roomId: string) {
       }
     }
     roomIsClosed();
-
+    
     roomRef.on('value', room => {
       const databaseRoom = room.val();
       const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
