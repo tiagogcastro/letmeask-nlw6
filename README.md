@@ -74,6 +74,8 @@ ___
     yarn
   </p>
   <p>➡ Para ver os comandos disponíveis e dependências instaladas, vá no arquivo package.json. </p>
+
+  <p>➡ Crie um arquivo chamado .env.local na raiz do projeto e coloque as variaveis ambiente do .env.example e preencha com seus dados para poder utilizar o firebase.</p>
  
   <p>➡ Por fim, ao fazer tudo certinho, execute o comando:</p>
   <p>
