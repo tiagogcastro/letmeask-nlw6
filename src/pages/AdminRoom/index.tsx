@@ -12,6 +12,7 @@ import answerImg from '../../assets/images/answer.svg';
 import logoImg from '../../assets/images/logo.svg';
 
 import './styles.scss';
+import { UserInfo } from '../../components/UserInfo';
 
 type RoomParams = {
   id: string;
@@ -55,8 +56,8 @@ export function AdminRoom() {
         <div className="content">
           <img src={logoImg} alt="Letmeask" />
           <div>
+            <UserInfo />
             <Button onClick={() => history.push('/rooms/me')}>Minhas salas</Button>
-            <RoomCode code={roomId} />
             <Button 
               onClick={handleEndRoom} 
               isOutlined
@@ -68,11 +69,14 @@ export function AdminRoom() {
       </header>
 
       <main>
-        <div className="room-title">
-          <h1>Sala {title}</h1>
-          {questions.length > 0 && (
-            <span>{questions.length} perguntas</span>
-          )}
+        <div className="details">
+          <RoomCode code={roomId} />
+          <div className="room-title">
+            <h1>Sala {title}</h1>
+            {questions.length > 0 && (
+              <span>{questions.length} perguntas</span>
+              )}
+          </div>
         </div>
 
         <div className="question-list">

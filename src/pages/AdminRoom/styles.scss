@@ -29,8 +29,12 @@
     max-width: 800px;
     margin: 0 auto;
 
+    .details {
+      margin-top: 48px;
+    }
+
     .room-title {
-      margin: 48px 0 24px;
+      margin: 16px 0 24px;
       display: flex;
       align-items:center;
 
