@@ -12,6 +12,7 @@ import { Question } from '../../components/Question';
 import logoImg from '../../assets/images/logo.svg';
 
 import './styles.scss';
+import { UserInfo } from '../../components/UserInfo';
 
 type RoomParams = {
   id: string;
@@ -86,10 +87,7 @@ export function Room() {
 
           <div className="form-footer">
             { user ? (
-              <div className="user-info">
-                <img src={user.avatar} alt={user.name} />
-                <span>{user.name}</span>
-              </div>
+              <UserInfo />
             ) : (
               <span> Para enviar uma pergunta,
                 <button> faça seu login</button>

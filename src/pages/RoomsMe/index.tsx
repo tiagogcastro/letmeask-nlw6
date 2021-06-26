@@ -8,6 +8,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { database } from '../../services/firebase';
 import { useEffect, useState } from 'react';
 import { Button } from '../../components/Button';
+import { UserInfo } from '../../components/UserInfo';
 
 type FirebaseRooms = Array<{
   id: string,
@@ -75,10 +76,7 @@ export function RoomsMe() {
           <img src={logoImg} alt="Logo do letmeask" />
 
           <div className="infos">
-            <div className="user-info">
-              <img src={user?.avatar} alt={user?.name} />
-              <span>{user?.name}</span>
-            </div>
+            <UserInfo />
             <Link to={`/rooms`}>
               <Button type="button">
                 Outras salas

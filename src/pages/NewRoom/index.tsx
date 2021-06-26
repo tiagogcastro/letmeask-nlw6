@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/useAuth';
 
 import { Button } from '../../components/Button';
 import { IllustrationAside } from '../../components/IlustrationAside';
+import { UserInfo } from '../../components/UserInfo';
 
 import logoImg from '../../assets/images/logo.svg';
 
@@ -38,10 +39,7 @@ export function NewRoom() {
       <IllustrationAside />
       <main>
         <header>
-          <div className="user-info">
-            <img src={user?.avatar} alt={user?.name} />
-            <span>{user?.name}</span>
-          </div>
+          <UserInfo />
           <Link to="/rooms/me">
             <Button type="button">Minhas salas</Button>
           </Link>

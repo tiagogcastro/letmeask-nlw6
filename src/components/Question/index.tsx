@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import cxLib from 'classnames';
 
 import './styles.scss';
+import { UserInfo } from '../UserInfo';
 
 type QuestionProps = {
   content: string;
@@ -29,10 +30,10 @@ export function Question({
     )}>
       <p>{content}</p>
       <footer>
-        <div className="user-info">
-          <img src={author.avatar} alt={author.name} />
-          <span>{author.name}</span>
-        </div>
+        <UserInfo 
+          avatar={author.avatar}
+          name={author.name}
+        />
         <div>
           {children}
         </div>
