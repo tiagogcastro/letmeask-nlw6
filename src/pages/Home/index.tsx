@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { database } from '../../services/firebase';
 
 import { useAuth } from '../../hooks/useAuth';
@@ -69,6 +69,10 @@ export function Home() {
               Entrar na sala
             </Button>
           </form>
+          <p>
+            Quer ver todas as salas? 
+            <Link to="/rooms"> Clique aqui</Link>
+          </p>
         </div>
       </main>
     </div>
