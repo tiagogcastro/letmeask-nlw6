@@ -6,6 +6,7 @@ import { NewRoom } from './pages/NewRoom';
 import { Room } from './pages/Room';
 import { AdminRoom } from './pages/AdminRoom';
 import { RoomsMe } from './pages/RoomsMe';
+import { AllRooms } from './pages/AllRooms';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/rooms/me" component={RoomsMe} />
           <Route path="/rooms/:id" component={Room} />
           <Route path="/admin/rooms/:id" component={AdminRoom} />
+          <Route path="/rooms" component={AllRooms} />
         </Switch>
       </AuthContextProvider>
     </BrowserRouter>
