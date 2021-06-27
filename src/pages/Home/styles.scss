@@ -85,9 +85,10 @@
     form {
       input {
         height: 58px;
+        outline-color: #a8a8b3;
         border-radius: 8px;
         padding: 0 16px;
-        background: #fff;
+        background: #e4e4e4;
         border: 1px solid #a8a8b3;
       }
 
@@ -97,6 +98,16 @@
 
       button, input {
         width: 100%;
+      }
+    }
+    p {
+      font-size: 14px;
+      color: #737388;
+      margin-top: 16px;
+      text-align: left;
+
+      a {
+        color: #e559f9;
       }
     }
   }
