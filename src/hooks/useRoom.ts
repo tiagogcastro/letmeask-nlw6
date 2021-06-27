@@ -65,6 +65,17 @@ export function useRoom(roomId: string) {
             .entries(value.likes ?? {})
             .find(([key, like]) => like.authorId === user?.id)?.[0],
         };
+      }).sort((a, b) => {
+        return (
+          (
+            // Highlighted 1°
+            Number(!a.isHighLighted) - Number(!b.isHighLighted)
+          ) - (
+            // Resto em 2°
+            // Answered 3°
+            Number(!a.isAnswered) - Number(!b.isAnswered)
+          )
+        )
       });
 
       setTitle(databaseRoom.title);
