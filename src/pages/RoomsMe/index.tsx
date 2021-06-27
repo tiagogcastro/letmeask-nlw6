@@ -1,7 +1,6 @@
 import { Link, useHistory } from 'react-router-dom';
 
 import deleteImg from '../../assets/images/delete.svg';
-import logoImg from '../../assets/images/logo.svg';
 
 import './styles.scss';
 import { useAuth } from '../../hooks/useAuth';
@@ -9,13 +8,14 @@ import { database } from '../../services/firebase';
 import { useEffect, useState } from 'react';
 import { Button } from '../../components/Button';
 import { UserInfo } from '../../components/UserInfo';
+import { Header } from '../../components/Header';
 
-type FirebaseRooms = Array<{
+type FirebaseRooms = {
   id: string,
   authorId: string,
   title: string;
   endedAt?: boolean;
-}>;
+};
 
 type MeRoom = {
   id: string;
@@ -32,8 +32,8 @@ export function RoomsMe() {
   useEffect(() => {
     const roomRef = database.ref(`rooms`)
 
-    roomRef.on('value', async (room) => {
-      const rooms: FirebaseRooms = (await roomRef.get()).val();
+    roomRef.on('value', async () => {
+      const rooms: FirebaseRooms[] = (await roomRef.get()).val();
       
       const parsedRooms = Object.entries(rooms).map(([key, value]) => {
         return {
@@ -71,21 +71,16 @@ export function RoomsMe() {
 
   return (
     <div id="page-roomsMe">
-      <header>
-        <div className="content">
-          <img src={logoImg} alt="Logo do letmeask" />
-
-          <div className="infos">
-            <UserInfo />
-            <Link to={`/rooms`}>
-              <Button type="button">
-                Outras salas
-              </Button>
-            </Link>
-          </div>
-          
+      <Header>
+        <div className="infos">
+          <UserInfo />
+          <Link to={`/rooms`}>
+            <Button type="button">
+              Outras salas
+            </Button>
+          </Link>
         </div>
-      </header>
+      </Header>
 
       <div className="rooms">
         <div>
@@ -95,12 +90,12 @@ export function RoomsMe() {
             </Button>
           </Link>
           <div className="details">
-            <h2>Total de salas: <span> {meRooms.length} </span></h2>
+            {meRooms.length > 0 && (<h2>Total de salas: <span> {meRooms.length} </span></h2>)}
           </div>
         </div>
         
         {meRooms.map(room => (
-          <div className="room">
+          <div className="room" key={room.id}>
             <h1>{room.title}</h1>
             <div>
               <button

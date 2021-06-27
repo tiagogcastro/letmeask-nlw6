@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import { database } from '../../services/firebase';
 
@@ -9,10 +9,9 @@ import { Button } from '../../components/Button';
 import { RoomCode } from '../../components/RoomCode';
 import { Question } from '../../components/Question';
 
-import logoImg from '../../assets/images/logo.svg';
-
 import './styles.scss';
 import { UserInfo } from '../../components/UserInfo';
+import { Header } from '../../components/Header';
 
 type RoomParams = {
   id: string;
@@ -20,6 +19,7 @@ type RoomParams = {
 
 export function Room() {
   const { user } = useAuth();
+  const history = useHistory();
   const params = useParams<RoomParams>();
   const roomId = params.id;
   const { questions, title } = useRoom(roomId);
@@ -63,12 +63,10 @@ export function Room() {
 
   return (
     <div id="page-room">
-      <header>
-        <div className="content">
-          <img src={logoImg} alt="Letmeask" />
-          <RoomCode code={roomId} />
-        </div>
-      </header>
+      <Header>
+        <Button onClick={() => history.push('/rooms/me')}>Minhas salas</Button>
+        <RoomCode code={roomId} />
+      </Header>
 
       <main>
         <div className="room-title">

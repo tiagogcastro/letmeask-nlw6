@@ -5,14 +5,14 @@ import { useRoom } from '../../hooks/useRoom';
 import { Button } from '../../components/Button';
 import { Question } from '../../components/Question';
 import { RoomCode } from '../../components/RoomCode';
+import { Header } from '../../components/Header';
+import { UserInfo } from '../../components/UserInfo';
 
 import deleteImg from '../../assets/images/delete.svg';
 import checkImg from '../../assets/images/check.svg';
 import answerImg from '../../assets/images/answer.svg';
-import logoImg from '../../assets/images/logo.svg';
 
 import './styles.scss';
-import { UserInfo } from '../../components/UserInfo';
 
 type RoomParams = {
   id: string;
@@ -59,21 +59,18 @@ export function AdminRoom() {
 
   return (
     <div id="page-admin-room">
-      <header>
-        <div className="content">
-          <img src={logoImg} alt="Letmeask" />
-          <div>
-            <UserInfo />
-            <Button onClick={() => history.push('/rooms/me')}>Minhas salas</Button>
-            <Button 
-              onClick={handleEndRoom} 
-              isOutlined
-            >
-              Encerrar sala
-            </Button>
-          </div>
+      <Header>
+        <div>
+          <UserInfo />
+          <Button onClick={() => history.push('/rooms/me')}>Minhas salas</Button>
+          <Button 
+            onClick={handleEndRoom} 
+            isOutlined
+          >
+            Encerrar sala
+          </Button>
         </div>
-      </header>
+      </Header>
 
       <main>
         <div className="details">
