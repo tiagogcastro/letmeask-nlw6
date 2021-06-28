@@ -19,7 +19,7 @@ type FirebaseMeRooms = {
 
 export function RoomsMe() {
   const { user } = useAuth();
-  const [meRooms, setMeRooms] = useState<FirebaseMeRooms[] | undefined>([]);
+  const [meRooms, setMeRooms] = useState<FirebaseMeRooms[]>([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -89,11 +89,11 @@ export function RoomsMe() {
             </Button>
           </Link>
           <div className="details">
-            {meRooms && meRooms.length > 0 && (<h2>Total de salas: <span> {meRooms.length} </span></h2>)}
+            {meRooms.length > 0 && (<h2>Total de salas: <span> {meRooms.length} </span></h2>)}
           </div>
         </div>
         
-        {meRooms && meRooms.map(room => (
+        {meRooms.map(room => (
           <div className="room" key={room.id}>
             <h1>{room.title}</h1>
             <div>
