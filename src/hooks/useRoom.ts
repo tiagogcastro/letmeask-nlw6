@@ -5,6 +5,7 @@ import { useAuth } from './useAuth';
 
 type FirebaseQuestions = Record<string, {
   author: {
+    id: string;
     name: string;
     avatar: string;
   },
@@ -19,6 +20,7 @@ type FirebaseQuestions = Record<string, {
 type QuestionType = {
   id: string;
   author: {
+    id: string;
     name: string;
     avatar: string;
   },
@@ -34,23 +36,30 @@ export function useRoom(roomId: string) {
   const { user } = useAuth();
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [title, setTitle] = useState('');
+  const [adminId, setAdminId] = useState('');
   
   useEffect(() => {
     const roomRef = database.ref(`rooms/${roomId}`);
 
     async function roomIsClosed() {
       const room = (await roomRef.get()).exists();
-      const endedAt = (await roomRef.get()).val().endedAt;
-      
-      if(room && endedAt ){
-        history.push('/');
-        return;
+      if(room) {
+        const endedAt = (await roomRef.get()).val().endedAt;
+
+        if(endedAt) {
+          history.push('/');
+          return;
+        }
       }
     }
     roomIsClosed();
-    
+
     roomRef.on('value', room => {
       const databaseRoom = room.val();
+      if(!databaseRoom) {
+        history.push('/');
+        return;
+      }
       const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
 
       const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
@@ -65,21 +74,11 @@ export function useRoom(roomId: string) {
             .entries(value.likes ?? {})
             .find(([key, like]) => like.authorId === user?.id)?.[0],
         };
-      }).sort((a, b) => {
-        return (
-          (
-            // Highlighted 1°
-            Number(!a.isHighLighted) - Number(!b.isHighLighted)
-          ) - (
-            // Resto em 2°
-            // Answered 3°
-            Number(!a.isAnswered) - Number(!b.isAnswered)
-          )
-        )
       });
 
       setTitle(databaseRoom.title);
       setQuestions(parsedQuestions);
+      setAdminId(databaseRoom.authorId)
     });
 
     return () => {
@@ -90,6 +89,7 @@ export function useRoom(roomId: string) {
 
   return {
     questions,
-    title
+    title,
+    adminId
   }
 }
