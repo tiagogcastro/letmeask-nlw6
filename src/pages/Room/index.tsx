@@ -1,4 +1,4 @@
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import { database } from '../../services/firebase';
 
@@ -18,7 +18,7 @@ type RoomParams = {
 }
 
 export function Room() {
-  const { user } = useAuth();
+  const { user, signInWithGoogle } = useAuth();
   const history = useHistory();
   const params = useParams<RoomParams>();
   const roomId = params.id;
@@ -61,11 +61,30 @@ export function Room() {
     }
   }
 
+  async function handleLogin() {
+    if(!user) {
+      await signInWithGoogle()
+    }
+
+    history.push(`/rooms/${roomId}`);
+  }
+
+
   return (
     <div id="page-room">
       <Header>
-        <Button onClick={() => history.push('/rooms/me')}>Minhas salas</Button>
-        <RoomCode code={roomId} />
+        <div>
+          {user ? (
+          <Button onClick={() => history.push('/rooms/me')}>Minhas salas</Button>
+          ) : (
+            <Link to={`/rooms`}>
+              <Button type="button">
+                Outras salas
+              </Button>
+            </Link>
+            )}
+          <RoomCode code={roomId} />
+        </div>
       </Header>
 
       <main>
@@ -89,8 +108,8 @@ export function Room() {
             { user ? (
               <UserInfo />
             ) : (
-              <span> Para enviar uma pergunta,
-                <button> faça seu login</button>
+              <span>Para enviar uma pergunta, 
+                <button onClick={handleLogin}>faça seu login</button>
               </span>
             )}
             <Button type="submit" disabled={!user || !newQuestion || newQuestion.length > 400}>Enviar pergunta</Button>
