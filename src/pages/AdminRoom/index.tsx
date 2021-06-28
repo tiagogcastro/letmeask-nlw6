@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { database } from '../../services/firebase';
 import { useRoom } from '../../hooks/useRoom';
+import { useAuth } from '../../hooks/useAuth';
 
 import { Button } from '../../components/Button';
 import { Question } from '../../components/Question';
@@ -19,10 +21,18 @@ type RoomParams = {
 }
 
 export function AdminRoom() {
+  const { user } = useAuth();
   const params = useParams<RoomParams>();
   const history = useHistory();
   const roomId = params.id;
-  const { questions, title } = useRoom(roomId);
+  const { questions, title, adminId } = useRoom(roomId);
+
+  useEffect(() => {
+    if (user?.id === null || (adminId !== '' && adminId !== user?.id)) {
+      history.push(`/rooms/${roomId}`)
+    }
+}, [user, history, adminId])
+
 
   async function handleEndRoom() {
     await database.ref(`rooms/${roomId}`).update({
