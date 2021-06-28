@@ -41,7 +41,7 @@ export function RoomsMe() {
         };
       });
 
-      const roomsFiltered = parsedRooms.filter(result => result.authorId == user?.id)
+      const roomsFiltered = parsedRooms.filter(result => result.authorId === user?.id)
       
       setMeRooms(roomsFiltered);
 
