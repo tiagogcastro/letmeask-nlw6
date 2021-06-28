@@ -85,7 +85,7 @@ export function useRoom(roomId: string) {
       roomRef.off('value');
     };
 
-  }, [roomId, user?.id]);
+  }, [roomId, user?.id, history]);
 
   return {
     questions,
