@@ -10,54 +10,53 @@ import { Button } from '../../components/Button';
 import { UserInfo } from '../../components/UserInfo';
 import { Header } from '../../components/Header';
 
-type FirebaseRooms = {
+type FirebaseMeRooms = {
   id: string,
   authorId: string,
   title: string;
   endedAt?: boolean;
 };
 
-type MeRoom = {
-  id: string;
-  authorId: string;
-  title: string;
-  endedAt?: boolean;
-}
-
 export function RoomsMe() {
   const { user } = useAuth();
-  const [meRooms, setMeRooms] = useState<MeRoom[]>([]);
+  const [meRooms, setMeRooms] = useState<FirebaseMeRooms[] | undefined>([]);
   const history = useHistory();
 
   useEffect(() => {
-    const roomRef = database.ref(`rooms`)
+    const roomRef = database.ref(`rooms`);
 
     roomRef.on('value', async () => {
-      const rooms: FirebaseRooms[] = (await roomRef.get()).val();
-      
+      const rooms: FirebaseMeRooms[] = (await roomRef.get()).val();
+
+      if(!rooms) {
+        setMeRooms([]);
+        return;
+      }
       const parsedRooms = Object.entries(rooms).map(([key, value]) => {
         return {
           id: key,
           authorId: value.authorId,
           title: value.title,
-          endedAt: value.endedAt
-        }
+          endedAt: value.endedAt,
+        };
       });
 
-      const allAuthorId = parsedRooms.map(result => result);
-
-      const roomsFiltered = allAuthorId.filter(result => result.authorId == user?.id)
+      const roomsFiltered = parsedRooms.filter(result => result.authorId == user?.id)
       
       setMeRooms(roomsFiltered);
 
     });
+
+    return () => {
+      roomRef.off('value');
+    };
  
   }, [user?.id]);
 
   async function handleOpenRoom(roomId: string) {
 
     await database.ref(`rooms/${roomId}`).update({
-      endedAt: false
+      endedAt: false,
     });
 
     history.push(`/admin/rooms/${roomId}`);
@@ -90,11 +89,11 @@ export function RoomsMe() {
             </Button>
           </Link>
           <div className="details">
-            {meRooms.length > 0 && (<h2>Total de salas: <span> {meRooms.length} </span></h2>)}
+            {meRooms && meRooms.length > 0 && (<h2>Total de salas: <span> {meRooms.length} </span></h2>)}
           </div>
         </div>
         
-        {meRooms.map(room => (
+        {meRooms && meRooms.map(room => (
           <div className="room" key={room.id}>
             <h1>{room.title}</h1>
             <div>
