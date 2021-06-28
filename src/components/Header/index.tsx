@@ -10,8 +10,9 @@ type HeaderProps = {
 }
 
 export function Header({children}: HeaderProps) {
+ 
   return (
-    <header>
+    <header className="header">
       <div className="content">
         <Link to="/">
           <img src={logoImg} alt="Logo do letmeask" />
