@@ -5,7 +5,7 @@
   padding: 24px;
 
   & + .question {
-    margin-top: 8px;
+    margin-top: 16px;
   }
 
   
@@ -19,7 +19,7 @@
   }
   
   &.answered {
-    background: #d8dcdd;
+    background: #e6e6e6;
   }
 
   p {
