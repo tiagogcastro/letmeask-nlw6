@@ -31,7 +31,7 @@ export function AdminRoom() {
     if (user?.id === null || (adminId !== '' && adminId !== user?.id)) {
       history.push(`/rooms/${roomId}`)
     }
-}, [user, history, adminId])
+  }, [user, history, adminId, roomId])
 
 
   async function handleEndRoom() {
