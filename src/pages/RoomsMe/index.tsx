@@ -11,8 +11,12 @@ import { UserInfo } from '../../components/UserInfo';
 import { Header } from '../../components/Header';
 
 type FirebaseMeRooms = {
-  id: string,
-  authorId: string,
+  id: string;
+  author: {
+    id: string;
+    name: string;
+    avatar: string;
+  };
   title: string;
   endedAt?: boolean;
 };
@@ -35,13 +39,13 @@ export function RoomsMe() {
       const parsedRooms = Object.entries(rooms).map(([key, value]) => {
         return {
           id: key,
-          authorId: value.authorId,
+          author: value.author,
           title: value.title,
           endedAt: value.endedAt,
         };
       });
 
-      const roomsFiltered = parsedRooms.filter(result => result.authorId === user?.id)
+      const roomsFiltered = parsedRooms.filter(result => result.author.id === user?.id)
       
       setMeRooms(roomsFiltered);
 
@@ -72,7 +76,10 @@ export function RoomsMe() {
     <div id="page-roomsMe">
       <Header>
         <div className="infos">
-          <UserInfo />
+          <UserInfo 
+            avatar={user?.avatar}
+            name={user?.name}
+          />
           <Link to={`/rooms`}>
             <Button type="button">
               Outras salas
