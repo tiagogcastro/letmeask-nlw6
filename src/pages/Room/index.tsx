@@ -106,7 +106,10 @@ export function Room() {
 
           <div className="form-footer">
             { user ? (
-              <UserInfo />
+              <UserInfo 
+                avatar={user?.avatar}
+                name={user?.name}
+              />
             ) : (
               <span>Para enviar uma pergunta, 
                 <button onClick={handleLogin}>faça seu login</button>

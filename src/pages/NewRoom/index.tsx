@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { database } from '../../services/firebase';
 
@@ -17,6 +17,12 @@ export function NewRoom() {
   const [newRoom, setNewRoom] = useState('');
   const history = useHistory();
 
+  useEffect(() => {
+    if (!user) {
+      history.push(`/`);
+    }
+  }, [user]);
+
   async function handleCreateRoom(event: FormEvent) {
     event.preventDefault();
 
@@ -28,10 +34,15 @@ export function NewRoom() {
 
     const firebaseRoom = await roomRef.push({
       title: newRoom,
-      authorId: user?.id,
+      author: {
+        id: user?.id,
+      name: user?.name,
+      avatar: user?.avatar
+      },
       endedAt: false,
+      questionCount: 0, 
     });
-
+    
     history.push(`/admin/rooms/${firebaseRoom.key}`);
   }
   
@@ -40,7 +51,10 @@ export function NewRoom() {
       <IllustrationAside />
       <main>
         <header>
-          <UserInfo />
+          <UserInfo 
+            avatar={user?.avatar}
+            name={user?.name}
+          />
           <Link to="/rooms/me">
             <Button type="button">Minhas salas</Button>
           </Link>
@@ -56,7 +70,7 @@ export function NewRoom() {
               onChange={event => setNewRoom(event.target.value)}
               value={newRoom}
             />
-            <Button type="submit">
+            <Button type="submit" disabled={!user}>
               Criar sala
             </Button>
           </form>

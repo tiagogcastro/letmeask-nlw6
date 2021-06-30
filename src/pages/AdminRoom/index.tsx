@@ -71,7 +71,10 @@ export function AdminRoom() {
     <div id="page-admin-room">
       <Header>
         <div>
-          <UserInfo />
+          <UserInfo 
+            avatar={user?.avatar}
+            name={user?.name}
+          />
           <Button onClick={() => history.push('/rooms/me')}>Minhas salas</Button>
           <Button 
             onClick={handleEndRoom} 
