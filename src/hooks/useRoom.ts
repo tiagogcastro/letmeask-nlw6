@@ -23,12 +23,24 @@ type QuestionType = {
     id: string;
     name: string;
     avatar: string;
-  },
+  };
   content: string;
   isAnswered: boolean;
   isHighLighted: boolean;
   likeCount: number;
   likeId: string | undefined;
+}
+
+type DatabaseRoomType = {
+  title: string;
+  author: {
+    id: string;
+    name: string;
+    avatar: string;
+  };
+  questions: FirebaseQuestions;
+  endedAt: false,
+  questionCount: 0,
 }
 
 export function useRoom(roomId: string) {
@@ -55,7 +67,7 @@ export function useRoom(roomId: string) {
     roomIsClosed();
 
     roomRef.on('value', room => {
-      const databaseRoom = room.val();
+      const databaseRoom: DatabaseRoomType = room.val();
       if(!databaseRoom) {
         history.push('/');
         return;
@@ -78,7 +90,7 @@ export function useRoom(roomId: string) {
 
       setTitle(databaseRoom.title);
       setQuestions(parsedQuestions);
-      setAdminId(databaseRoom.authorId)
+      setAdminId(databaseRoom.author.id)
     });
 
     return () => {
