@@ -41,6 +41,7 @@ ___
   <p>➡ Listando todas as minhas salas. </p>
   <p>➡ Deletando salas. </p>
   <p>➡ Reabrindo salas que foram encerradas. </p>
+  <p>➡ Listando todas as salas </p>
 </div>
 
 <div align="left"> 
